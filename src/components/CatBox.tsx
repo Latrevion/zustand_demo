@@ -1,4 +1,3 @@
-import React from "react";
 import { useCatStore } from "../stores/catStore";
 
 const CatBox = () => {
@@ -9,6 +8,7 @@ const CatBox = () => {
       <h1>Cat box</h1>
       <p>big cats: {cats.bigCats}</p>
       <p>small cats: {cats.smallCats}</p>
+    <p>{Math.random()}</p>
       <div>
         <button onClick={increaseBigCats}>add big cats</button>
         <button onClick={increaseSmallCats}>add small cats</button>

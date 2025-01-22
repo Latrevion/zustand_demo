@@ -8,10 +8,10 @@ function App() {
     <div className="container">
       <h1>Zustand Tutorial</h1>
       <div>
-        {/* <BearBox /> */}
+        <BearBox />
         <CatBox></CatBox>
-        <CatBox2></CatBox2>
-        <CatController></CatController>
+        {/* <CatBox2></CatBox2> */}
+        {/* <CatController></CatController> */}
       </div>
     </div>
   );

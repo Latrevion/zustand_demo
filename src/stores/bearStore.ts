@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 // type TBearStoreState = {
 //   bears: number;
@@ -8,9 +8,11 @@ import { devtools } from "zustand/middleware";
 // };
 
 export const useBearStore = create<TBearStoreState>()(
-  devtools(
+  persist(
     (set) => ({
       bears: 0,
+      color: "red",
+      size: "12",
       increasePopulation: () =>
         set((state) => ({
           bears: state.bears + 1,
@@ -28,7 +30,18 @@ export const useBearStore = create<TBearStoreState>()(
         return owner.name;
       },
     }),
-    { enabled: true, name: "bear-store" }
+    {
+      name: "bear store",
+      // partialize: (state) => ({
+      //   bears: state.bears,
+      // }),
+      partialize: (state) =>
+        Object.fromEntries(
+          Object.entries(state).filter(
+            ([key]) => !["size", "color"].includes(key)
+          )
+        ),
+    }
   )
 );
 
@@ -38,4 +51,6 @@ type TBearStoreState = {
   decreasePopulation: () => void;
   removeAllBears: () => void;
   getOwner: () => Promise<string>;
+  color: string;
+  size: string;
 };

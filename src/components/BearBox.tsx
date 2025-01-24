@@ -11,9 +11,9 @@ export const BearBox = () => {
     useBearStore();
   // const fish = useFoodStore((state) => state.fish);
 
-  const [bgColor, setBgColor] = useState<"lightgreen" | "lightpink">(
-    "lightpink"
-  );
+  const [bgColor, setBgColor] = useState<
+    "lightgreen" | "lightpink" | undefined
+  >(useFoodStore.getState().fish > 5 ? "lightgreen" : "lightpink");
 
   useEffect(() => {
     // const unsub = useFoodStore.subscribe((state, preState) => {
@@ -25,11 +25,10 @@ export const BearBox = () => {
     //   }
     //   return unsub;
     // });
-
     const unsub = useFoodStore.subscribe(
       (state) => state.fish,
       (fish, preFish) => {
-        if (fish <= 5) {
+        if (fish <= 5) 
           setBgColor("lightpink");
         } else if (fish > 5) {
           setBgColor("lightgreen");

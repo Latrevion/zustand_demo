@@ -1,17 +1,22 @@
 import { create } from 'zustand'
-import { subscribeWithSelector } from 'zustand/middleware';
-type TFoodStoreState = {
-    fish: number;
-    addOneFish: () => void;
-    removeOneFish: () => void;
-    removeAllFIsh: () => void;
-}
+import { persist, subscribeWithSelector, devtools } from 'zustand/middleware';
 
-export const useFoodStore = create<TFoodStoreState>()(subscribeWithSelector((set) => ({
-    fish: 0,
-    addOneFish: () => set((state) => ({ fish: state.fish + 1 })),
-    removeOneFish: () => set((state) => ({ fish: state.fish - 1 })),
-    removeAllFIsh: () => {
-        set({ fish: 0 })
-    }
-})))
+const initialFoodValue = {
+    fish: 0
+}
+type FoodState = typeof initialFoodValue;
+
+export const useFoodStore = create<FoodState>()(
+    devtools(
+        subscribeWithSelector(
+            persist(
+                () => initialFoodValue, { name: 'food store' })
+        ),
+        { name: 'food store' }
+    )
+);
+
+
+export const addOneFish = () => useFoodStore.setState((state) => ({ fish: state.fish + 1 }));
+export const removeOneFish = () => useFoodStore.setState((state) => ({ fish: state.fish - 1 }));
+export const removeAllFish = () => useFoodStore.setState({ fish: 0 });

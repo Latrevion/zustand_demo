@@ -9,7 +9,7 @@ export const BearBox = () => {
   //   const removeAllBears = useBearStore((state) => state.removeAllBears);
   const { bears, increasePopulation, decreasePopulation, removeAllBears } =
     useBearStore();
-  // const fish = useFoodStore((state) => state.fish);
+  const fish = useFoodStore((state) => state.fish);
 
   const [bgColor, setBgColor] = useState<
     "lightgreen" | "lightpink" | undefined
@@ -28,7 +28,7 @@ export const BearBox = () => {
     const unsub = useFoodStore.subscribe(
       (state) => state.fish,
       (fish, preFish) => {
-        if (fish <= 5) 
+        if (fish <= 5) {
           setBgColor("lightpink");
         } else if (fish > 5) {
           setBgColor("lightgreen");

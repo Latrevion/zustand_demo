@@ -36,9 +36,10 @@ export const useCatStore = createSelectors(
               },
             }),
             { name: "cat store" }
-          ),
-          { enabled: true, name: "catStore" }
-        ))
+          )
+        ),
+        { enabled: true, name: "catStore" }
+      )
     )
   )
 );
